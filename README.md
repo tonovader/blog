@@ -1,4 +1,5 @@
 # README
+# Specs
 ## Scheme
 - Nombre completo
 - Correo
@@ -9,7 +10,14 @@
 - Rspec
 - Rspec Rails
 - factory_bot
-- Devise
+- Devise/Clearance
 # -------
 ## Reqs
 - Login
+- Post (Pics, text with format(bold, italics, etc))
+
+# -------
+## Views
+- Index(not registered/logged in)
+- Index (personal posts)
+- Posts CRUD
