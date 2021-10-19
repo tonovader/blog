@@ -19,7 +19,13 @@ describe Post do
 
     it('is invalid')                        { expect(post).to be_invalid }
     it('has "user must exist" error')       { expect(post.errors[:user]).to include 'must exist' }
-    it('has body "can\'t be blank error"')  { expect(post.errors[:body]).to include 'can\'t be blank' }
-    it('has title "can\'t be blank error"') { expect(post.errors[:title]).to include 'can\'t be blank' }
+
+    it('has body "can\'t be blank error"')  {
+      expect(post.errors[:body]).to include 'can\'t be blank'
+    }
+
+    it('has title "can\'t be blank error"') {
+      expect(post.errors[:title]).to include 'can\'t be blank'
+    }
   end
 end

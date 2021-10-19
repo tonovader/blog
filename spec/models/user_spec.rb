@@ -86,7 +86,9 @@ describe User, '#followings' do
   end
 
   context 'when other user has followings' do
-    let(:user_follows) { create :follow, recipient: create(:tony_stark), user: create(:steve_rogers) }
+    let(:user_follows) do
+      create :follow, recipient: create(:tony_stark), user: create(:steve_rogers)
+    end
 
     it 'returns an empty array' do
       expect(followings).to be_empty
@@ -237,6 +239,10 @@ describe User, '#followed_posts' do
 
       it 'returns posts by followed user' do
         expect(user.followed_posts).to match_array expected_posts
+      end
+
+      it 'does not create any new follows' do
+        expect { user.followed_posts }.not_to change(Follow, :count)
       end
     end
 

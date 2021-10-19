@@ -1,11 +1,11 @@
 class Follow < ApplicationRecord
-    #ASSOCIATIONS
+  # ASSOCIATIONS
 
-    belongs_to :user
-    belongs_to :recipient, class_name: 'User'
+  belongs_to :user
+  belongs_to :recipient, class_name: 'User'
 
-    # VALIDATIONS
+  # VALIDATIONS
 
-    validates :user, uniqueness: { scope: :recipient, message: 'can not be followed twice' }
-
+  validates :user, uniqueness: { scope: :recipient, message: 'can not be followed twice' }
+  validates :recipient
 end

@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_many :follows, dependent: :destroy
   has_many :followings, class_name: 'Follow', foreign_key: 'recipient_id', dependent: :destroy
   has_many :followers, class_name: 'User', through: :followings, source: :user
-  has_many :followed_users, class_name: 'User', through: :follows, source: :recipient 
-
+  has_many :followed_users, class_name: 'User', through: :follows, source: :recipient
+  has_many :followed_posts, class_name: 'Post', through: :followed_users
   # Validations
   validates :name, presence: true
   validates :email, presence: true
@@ -24,10 +24,11 @@ class User < ApplicationRecord
 
   def follow!(user)
     return if user == self
+
     follows.create(recipient: user)
   end
 
   def followed_posts
-    Post.where(user: followed_users.push(self))
+    Post.where(user: followed_users.to_a.push(self))
   end
 end

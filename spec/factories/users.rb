@@ -3,10 +3,10 @@ FactoryBot.define do
     name { 'NotAbdiel' }
     email { 'abykings1@hotmail.com' }
     password { 'str4wberryF1elds1!' }
-    
-    trait :sequential_user do 
-      sequence(:name) {|n| "User #{n}"}
-      sequence(:email) {|n| "user#{n}@test.com"}
+
+    trait :sequential_user do
+      sequence(:name) { |n| "User #{n}" }
+      sequence(:email) { |n| "user#{n}@test.com" }
     end
   end
 

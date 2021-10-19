@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_10_02_215919) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipient_id"], name: "index_follows_on_recipient_id"
+    t.index ["user_id", "recipient_id"], name: "index_follows_on_user_id_and_recipient_id", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
