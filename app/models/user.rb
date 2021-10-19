@@ -4,7 +4,8 @@ class User < ApplicationRecord
   # Associations
   has_many :posts, dependent: :destroy
   has_many :follows, dependent: :destroy
-  has_many :followings, class_name: 'Follow', foreign_key: 'recipient_id', dependent: :destroy
+  has_many :followings, class_name: 'Follow', foreign_key: 'recipient_id', dependent: :destroy,
+                        inverse_of: :user
   has_many :followers, class_name: 'User', through: :followings, source: :user
   has_many :followed_users, class_name: 'User', through: :follows, source: :recipient
   has_many :followed_posts, class_name: 'Post', through: :followed_users
