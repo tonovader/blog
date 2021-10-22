@@ -7,5 +7,4 @@ class Follow < ApplicationRecord
   # VALIDATIONS
 
   validates :user, uniqueness: { scope: :recipient, message: 'can not be followed twice' }
-  validates :recipient
 end
