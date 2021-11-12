@@ -43,7 +43,7 @@ describe 'Posts', '#GET /index' do
       end
     end
 
-   context 'when the user does not follow anybody with posts' do
+    context 'when the user does not follow anybody with posts' do
       let(:tony_stark) { create :tony_stark }
 
       before do
@@ -65,6 +65,47 @@ describe 'Posts', '#GET /index' do
     before do
       req_index
     end
+
+    it { expect(response).not_to be_successful }
+
+    it 'redirects to sign in page' do
+      expect(response).to redirect_to new_user_session_path
+    end
+  end
+end
+
+describe 'Posts', '#PATCH /destroy' do
+  subject(:req_destroy) { delete(post_path(post)) }
+
+  context 'when the user is signed in' do
+    let(:user) { create :user }
+
+    before do
+      sign_in user
+    end
+
+    context 'while the post belongs to user' do
+      let!(:post) { create :post, user: user }
+
+      it 'deletes the post' do
+        expect { req_destroy }.to change(Post, :count).from(1).to(0)
+      end
+    end
+
+    context 'while the post does not belong to user' do
+      let!(:post) { create :post, user: create(:steve_rogers) }
+
+      it 'does not delete the post' do
+        expect { req_destroy }.to raise_error(ActiveRecord::RecordNotFound)
+        expect(Post.count).to eq 1
+      end
+    end
+  end
+
+  context 'when no user is signed in' do
+    let!(:post) { create :post }
+
+    before { req_destroy }
 
     it { expect(response).not_to be_successful }
 
